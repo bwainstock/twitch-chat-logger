@@ -20,3 +20,15 @@ def get_channel_names(streams):
 
 def current_time_in_milli():
     return int(round(time.time() * 1000))
+
+
+def parse_channels_list(filename):
+        with open(filename, 'r') as f:
+            return f.read().splitlines()
+
+
+def get_streams_from_channels(channels):
+    twitch_stream_url = 'https://api.twitch.tv/kraken/streams/{channel}'
+    print channels
+    streams = [json.loads(requests.get(twitch_stream_url.format(channel=channel)).text) for channel in channels]
+    return [stream['stream'] for stream in streams if 'stream' in stream]

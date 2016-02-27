@@ -2,9 +2,9 @@ import Queue
 import settings
 import time
 
-from irc import run_bot, IRCConnection
+from irc import IRCConnection
 from bot import TwitchBot
-from utils import get_top_streams, get_channel_names
+from utils import get_top_streams, get_channel_names, get_streams_from_channels
 from db_logger import DatabaseLogger
 
 
@@ -96,10 +96,14 @@ class TwitchManager:
 
     def _run_static_streams_loop(self):
         self._create_bots(self.channels)
+        streams = get_streams_from_channels(self.channels)
+        streams = [stream for stream in streams if stream]
+        self._log_streams(streams)
         while True:
             time.sleep(self.SECONDS_BETWEEN_UPDATE_STREAMS)
-            #streams = get_top_streams(self.channels_amount)
-            #self._log_streams(streams)
+            streams = get_streams_from_channels(self.channels)
+            streams = [stream for stream in streams if stream]
+            self._log_streams(streams)
 
     def run_log_loop(self):
         """
