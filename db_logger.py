@@ -1,5 +1,5 @@
 import psycopg2
-
+import time
 from utils import current_time_in_milli
 
 
@@ -8,7 +8,11 @@ class DatabaseLogger:
     cursor = None
 
     def __init__(self, host, name, user, password):
-        self.conn = psycopg2.connect(host=host, dbname=name, user=user, password=password)
+        try:
+            self.conn = psycopg2.connect(host=host, dbname=name, user=user, password=password)
+        except:
+            time.sleep(10)
+            self.conn = psycopg2.connect(host=host, dbname=name, user=user, password=password)
         self.conn.autocommit = True
         self.cursor = self.conn.cursor()
 
