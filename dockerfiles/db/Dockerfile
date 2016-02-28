@@ -1,4 +1,2 @@
 FROM postgres:latest
-ADD scripts /docker-entrypoint-initdb.d
-ADD . /files
-WORKDIR /files
+ADD create_tables.sql /docker-entrypoint-initdb.d

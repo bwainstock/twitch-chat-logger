@@ -1,10 +1,8 @@
 import settings
 import threading
 import Queue
-import socket
-import logging
 
-from irc import IRCBot, run_bot, DisconnectedException
+from irc import IRCBot, DisconnectedException
 
 
 class TwitchBot(IRCBot, threading.Thread):
