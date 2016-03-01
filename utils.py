@@ -24,7 +24,7 @@ def current_time_in_milli():
 
 def parse_channels_list(filename):
         with open(filename, 'r') as f:
-            return f.read().splitlines()
+            return f.read().lower().splitlines()
 
 
 def get_streams_from_channels(channels):
