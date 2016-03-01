@@ -3,6 +3,8 @@ bot:
     command: python main.py
     links:
         - db
+    restart: always
+
 db:
     build: dockerfiles/db
     environment:
@@ -11,3 +13,4 @@ db:
         - POSTGRES_DB=twitch
     ports:
         - "5432:5432"
+    restart: always
